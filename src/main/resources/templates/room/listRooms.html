@@ -8,7 +8,7 @@
 <body>
 	<h3>会議室</h3>
 	<a th:href="@{'/rooms/' + ${date.minusDays(1)}}">前日</a>
-	<span th:text="|${#temporformat(date, 'yyyy/M/d')}の会議室|">2025/04/30の会議室</span>
+	<span th:text="|${#temporals.format(date, 'yyyy/M/d')}の会議室|">2025/04/30の会議室</span>
 	<a th:href="@{'/rooms' + ${date.plusDays(1)}}">翌日</a>
 	
 	<ul>

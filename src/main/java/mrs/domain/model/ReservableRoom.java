@@ -15,7 +15,7 @@ public class ReservableRoom implements Serializable {
 	private ReservableRoomId reservableRoomId;
 	
 	@ManyToOne
-	@JoinColumn(name = "room_id, insertable = false, updatable = false")
+	@JoinColumn(name = "room_id", insertable = false, updatable = false)
 	@MapsId("roomId")
 	private MeetingRoom meetingRoom;
 }

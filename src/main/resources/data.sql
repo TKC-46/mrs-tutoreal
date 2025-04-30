@@ -1,11 +1,11 @@
 -- 会議室
-INSERT INTO meeting_room (room_name) VALUES ('新木場')；
-INSERT INTO meeting_room (room_name) VALUES ('辰巳')；
-INSERT INTO meeting_room (room_name) VALUES ('豊洲')；
-INSERT INTO meeting_room (room_name) VALUES ('月島')；
-INSERT INTO meeting_room (room_name) VALUES ('新富町')；
-INSERT INTO meeting_room (room_name) VALUES ('銀座一丁目')；
-INSERT INTO meeting_room (room_name) VALUES ('有楽町')；
+INSERT INTO meeting_room (room_name) VALUES ('新木場');
+INSERT INTO meeting_room (room_name) VALUES ('辰巳');
+INSERT INTO meeting_room (room_name) VALUES ('豊洲');
+INSERT INTO meeting_room (room_name) VALUES ('月島');
+INSERT INTO meeting_room (room_name) VALUES ('新富町');
+INSERT INTO meeting_room (room_name) VALUES ('銀座一丁目');
+INSERT INTO meeting_room (room_name) VALUES ('有楽町');
 
 -- room_id=1 (新木場)の予約可能日
 INSERT INTO reservable_room (reserved_date, room_id) VALUES (CURRENT_DATE, 1);
@@ -44,8 +44,9 @@ INSERT INTO reservable_room (reserved_date, room_id) VALUES (CURRENT_DATE - 1, 7
 
 
 -- ダミーユーザー(password = demo)
-INSERT INTO user (user_id, first_name, last_name, passowrd, role_name) VALUES ('taro-yamada', '太郎', '山田', '1234567', 'USER');
+INSERT INTO usr (user_id, first_name, last_name, password, role_name) VALUES ('taro-yamada', '太郎', '山田', '1234567', 'USER');
+
 -- 認証確認用テストユーザー(password = demo)
-INSERT INTO user (user_id, first_name, last_name, passowrd, role_name) VALUES ('aaaa', 'Aaa', 'Aaa', '2345678', 'USER');
-INSERT INTO user (user_id, first_name, last_name, passowrd, role_name) VALUES ('bbbb', 'Bbb', 'Bbb', '3456789', 'USER');
-INSERT INTO user (user_id, first_name, last_name, passowrd, role_name) VALUES ('cccc', 'Ccc', 'Ccc', '7654321', 'ADMIN');
+INSERT INTO usr (user_id, first_name, last_name, password, role_name) VALUES ('aaaa', 'Aaa', 'Aaa', '2345678', 'USER');
+INSERT INTO usr (user_id, first_name, last_name, password, role_name) VALUES ('bbbb', 'Bbb', 'Bbb', '3456789', 'USER');
+INSERT INTO usr (user_id, first_name, last_name, password, role_name) VALUES ('cccc', 'Ccc', 'Ccc', '7654321', 'ADMIN');

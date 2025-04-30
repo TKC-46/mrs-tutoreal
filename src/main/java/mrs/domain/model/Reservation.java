@@ -24,7 +24,7 @@ public class Reservation implements Serializable {
 	
 	@ManyToOne
 	@JoinColumns({ @JoinColumn(name = "reserved_date"), 
-			@JoinColumn(name = "room_id") })
+			@JoinColumn(name = "room_id") })// reserved_date と room_idの組み合わせで外部キーとする
 	private ReservableRoom reservableRoom;
 	
 	

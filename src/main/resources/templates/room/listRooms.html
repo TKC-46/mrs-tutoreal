@@ -17,5 +17,13 @@
 				th:text="${room.meetingRoom.roomName}"></a>
 		</li>
 	</ul>
+	
+	
+	<tr th:each="room : ${rooms}">
+	    <td th:text="${room.meetingRoom.roomName}"></td>
+	    <td th:text="${room.reservableRoomId.reservedDate}"></td>
+	    <td th:text="${room.reservableRoomId.roomId}"></td> <!-- 追加 -->
+	</tr>
+
 </body>
 </html>

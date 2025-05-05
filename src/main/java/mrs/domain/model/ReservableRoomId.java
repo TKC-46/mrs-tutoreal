@@ -5,6 +5,7 @@ import java.time.LocalDate;
 
 import jakarta.persistence.Embeddable;
 
+// 複合主キーのクラス
 @Embeddable
 public class ReservableRoomId implements Serializable {
 
@@ -31,6 +32,9 @@ public class ReservableRoomId implements Serializable {
 	}
 	
 	
+	/*
+	 * DBから読み込んだReservableRoomIdと、画面からリクエストで受け取ったReservableRoomIdを比較して「同じもの」と判断します。
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {

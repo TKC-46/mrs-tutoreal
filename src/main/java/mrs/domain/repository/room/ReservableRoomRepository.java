@@ -11,6 +11,6 @@ import mrs.domain.model.ReservableRoomId;
 
 @Repository
 public interface ReservableRoomRepository extends JpaRepository<ReservableRoom, ReservableRoomId> {
-	// ReservableRoomIdのReservedDateを昇順で取得
+	// 予約可能な部屋IDを昇順で取得
 	List<ReservableRoom> findByReservableRoomId_ReservedDateOrderByReservableRoomId_RoomIdAsc(LocalDate reserveｄDate);
 }

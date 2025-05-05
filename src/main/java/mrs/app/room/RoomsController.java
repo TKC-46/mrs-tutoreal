@@ -3,6 +3,8 @@ package mrs.app.room;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -22,12 +24,23 @@ public class RoomsController {
 	@Autowired
 	RoomService roomService;
 	
+	private static final Logger logger = LoggerFactory.getLogger(RoomsController.class);
+
 	
+	// 前日や翌日の予約可能な会議室の一覧
 	@RequestMapping(path = "{date}", method = RequestMethod.GET)
 	public String listRooms(
 			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @PathVariable("date")
 			LocalDate date, Model model) { 
 		List<ReservableRoom> rooms = roomService.findReservableRooms(date);
+		// roomsの中身を確認
+		for (ReservableRoom room : rooms) {
+            logger.info("Room Info: roomName={}, roomId={}, reservedDate={}",
+                room.getMeetingRoom().getRoomName(),
+                room.getReservableRoomId().getRoomId(),
+                room.getReservableRoomId().getReservedDate());
+        }
+
 		model.addAttribute("rooms", rooms);
 		return "room/listRooms";
 	}

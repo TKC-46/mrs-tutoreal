@@ -28,6 +28,7 @@ public class RoomsController {
 
 	
 	// 前日や翌日の予約可能な会議室の一覧
+	// @Date：2025-05-06のようなパスをLocalDate型に自動変換
 	@RequestMapping(path = "{date}", method = RequestMethod.GET)
 	public String listRooms(
 			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @PathVariable("date")
@@ -35,7 +36,7 @@ public class RoomsController {
 		List<ReservableRoom> rooms = roomService.findReservableRooms(date);
 		// roomsの中身を確認
 		for (ReservableRoom room : rooms) {
-            logger.info("Room Info: roomName={}, roomId={}, reservedDate={}",
+            logger.info("会議室情報: roomName={}, roomId={}, reservedDate={}",
                 room.getMeetingRoom().getRoomName(),
                 room.getReservableRoomId().getRoomId(),
                 room.getReservableRoomId().getReservedDate());
@@ -50,6 +51,13 @@ public class RoomsController {
 		LocalDate today = LocalDate.now();
 		// 予約可能な会議室の一覧
 		List<ReservableRoom> rooms = roomService.findReservableRooms(today);
+		// ログにデータを表示
+		for (ReservableRoom room : rooms) {
+            logger.info("会議室情報: roomName={}, roomId={}, reservedDate={}",
+                room.getMeetingRoom().getRoomName(),
+                room.getReservableRoomId().getRoomId(),
+                room.getReservableRoomId().getReservedDate());
+        }
 		// 画面に渡す情報をModelオブジェクトに渡す
 		model.addAttribute("date", today);
 		model.addAttribute("rooms", rooms);

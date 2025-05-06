@@ -18,12 +18,31 @@
 		</li>
 	</ul>
 	
+	<table>
+		<thead>
+			<tr>
+				<th>会議室名</th>
+				<th>予約日</th>
+				<th>会議室ID</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="room : ${rooms}">
+	 	        <td th:text="${room.meetingRoom.roomName}"></td>
+				<td th:text="${room.reservableRoomId.reservedDate}"></td>
+				<td th:text="${room.reservableRoomId.roomId}"></td>
+			</tr>
+		</tbody>
+	</table>
 	
-	<tr th:each="room : ${rooms}">
-	    <td th:text="${room.meetingRoom.roomName}"></td>
-	    <td th:text="${room.reservableRoomId.reservedDate}"></td>
-	    <td th:text="${room.reservableRoomId.roomId}"></td> <!-- 追加 -->
-	</tr>
+	
+	<script th:inline="javascript">// <script>タグ内でThymeleafの式をJavaScript用に変換して埋め込む指定。
+		// Thymeleaf上で特殊記号<>%'"を無視するため
+	    /*<![CDATA[*/
+	    var rooms = [[${rooms}]];// [[]]インライン式で使うとき自動でJSON化
+	    console.log(JSON.stringify(rooms, null, 2)); 
+	    /*]]>*/
+	</script>
 
 </body>
 </html>

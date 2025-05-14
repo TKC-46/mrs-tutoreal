@@ -35,7 +35,8 @@ public class ReservationService {
 		// 対象の部屋が予約可能かチェック
 		ReservableRoom reservalbe = reservableRoomRepository.findById(reservableRoomId).orElse(null);
 		if (reservalbe == null) {
-			// 例外をスロー
+			// そもそも予約不可能
+			throw new UnavailableReservationException("入力の日付・部屋の組み合わせでは予約できません。");
 		}
 		
 		// 重複チェック
@@ -43,7 +44,8 @@ public class ReservationService {
 					.stream().anyMatch(x -> x.overlap(reservation));
 		
 		if (overlap) {
-			// 例外をスロー
+			// すでに予約済み
+			throw new AlreadyReservedException("入力の時間帯はすでに予約済みです。");
 		}
 		
 		

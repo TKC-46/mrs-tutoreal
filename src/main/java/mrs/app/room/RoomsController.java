@@ -24,6 +24,7 @@ public class RoomsController {
 	@Autowired
 	RoomService roomService;
 	
+	// ログ抽出用
 	private static final Logger logger = LoggerFactory.getLogger(RoomsController.class);
 
 	
@@ -31,7 +32,8 @@ public class RoomsController {
 	// @Date：2025-05-06のようなパスをLocalDate型に自動変換
 	@RequestMapping(path = "{date}", method = RequestMethod.GET)
 	public String listRooms(
-			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @PathVariable("date")
+			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @PathVariable("date") 
+			// iso:標準時間
 			LocalDate date, Model model) { 
 		List<ReservableRoom> rooms = roomService.findReservableRooms(date);
 		// roomsの中身を確認

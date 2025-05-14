@@ -19,6 +19,7 @@ public class Reservation implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer reservationId;
 	
+	// DBにある開始時間
 	private LocalTime startTime;
 	
 	private LocalTime endTime;
@@ -35,9 +36,12 @@ public class Reservation implements Serializable {
 	
 	
 	
-	// 重複チェック
+	/* 
+	 * 重複チェック
+	 * @target 今回登録したい予約
+	 */
 	public boolean overlap(Reservation target) {
-		// 複合主キーのオブジェクトが既にDBに登録されている日付・部屋と違えば重複していないためfalse
+		// 複合主キーのオブジェクトが既にDBに登録されている日付・部屋と違えば重複していない＝false
 		if (!Objects.equals(reservableRoom.getReservableRoomId(), target.reservableRoom.getReservableRoomId())) {
 			return false;
 		}
@@ -45,6 +49,10 @@ public class Reservation implements Serializable {
 		if (startTime.equals(target.startTime) && endTime.equals(target.startTime)) {
 			return true;
 		}
+		
+		// 入力された予約終了時間が既存予約開始時間より後 or 既存予約終了時間が入力された予約開始時間より後
+		// ⇒途中でかぶっている可能性あり
+		// true:重複　false:重複なし
 		return target.endTime.isAfter(startTime) && endTime.isAfter(target.startTime);
 	}
 	

@@ -40,6 +40,7 @@ public class ReservationService {
 		}
 		
 		// 重複チェック
+		// publicがない理由：publicはそもそも外部からアクセスを自由にするという意味、だがoverlap(ローカル変数)はメソッド内の一時的なデータで外からアクセスする必要がないため使えない
 		boolean overlap = reservationRepository.findByReservableRoom_ReservableRoomIdOrderByStartTimeAsc(reservableRoomId)
 					.stream().anyMatch(x -> x.overlap(reservation));
 		

@@ -65,7 +65,7 @@ public class ReservationsController {
 		model.addAttribute("reservations", reservations);
 		model.addAttribute("timeList", timeList);
 		model.addAttribute("user", dummyUser());
-		return "reservation/reserveForm";
+		return "reservation/reserveForm";asdlkfja0oij
 	}
 	
 	// private メソッドなのでこのクラス内ではインスタンス化せず使える

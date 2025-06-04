@@ -34,6 +34,7 @@ public class ReservationsController {
 	@Autowired
 	ReservationService reservationService;
 	
+	// 各リクエストのmodelに格納するオブジェクト作成
 	@ModelAttribute
 	ReservationForm setUpForm() {
 		ReservationForm form = new ReservationForm();
@@ -44,16 +45,21 @@ public class ReservationsController {
 	}
 	
 	
+	// @RequestMapping(mehtod = RequestMethod.GET)の省略形こちらはより詳細の設定する際に使う
 	@GetMapping
-	public String reserveForm(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+	public String reserveForm(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)// YYYY-MM-DD形式で表示
 			@PathVariable("date") LocalDate date,
 				@PathVariable("roomId") Integer roomId, Model model) {
+		// リクエストの会議室を取得
 		MeetingRoom meetingRoom = roomService.findMeetingRoom(roomId);
+		// ある会議室のある日付の予約をまとめて取り出す
 		ReservableRoomId reservableRoomId = new ReservableRoomId(roomId, date);
+		// 対象の会議室・日付の予約一覧
 		List<Reservation> reservations = reservationService.findReservations(reservableRoomId);
-		
-		List<LocalTime> timeList = Stream.iterate(LocalTime.of(0, 0), time -> time.plusMinutes(30))
-										.limit(24 * 2).collect(Collectors.toList());
+		// 0:00 〜 23:30 までの30分刻みの時刻リスト
+		List<LocalTime> timeList = Stream.iterate(LocalTime.of(0, 0),// 00：00からリスト化
+										time -> time.plusMinutes(30))// 30分刻みでリストに追加
+										.limit(24 * 2).collect(Collectors.toList());// 最大48個の時間を配列化＝＞[00:00, 00:30 ～ 23:30]計48個
 		
 		model.addAttribute("room", meetingRoom);
 		model.addAttribute("reservations", reservations);
@@ -62,7 +68,7 @@ public class ReservationsController {
 		return "reservation/reserveForm";
 	}
 	
-	
+	// private メソッドなのでこのクラス内ではインスタンス化せず使える
 	private User dummyUser() {
 		User user = new User();
 		user.setUserId("taro-yamada");

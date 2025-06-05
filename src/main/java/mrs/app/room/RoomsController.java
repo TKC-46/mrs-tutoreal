@@ -48,7 +48,7 @@ public class RoomsController {
 		return "room/listRooms";
 	}
 	
-	@GetMapping // 上記のオーバーロード
+	@GetMapping // 上記のオーバーロード:予約日がない会議室一覧
 	public String listRooms(Model model) {
 		LocalDate today = LocalDate.now();
 		// 予約可能な会議室の一覧

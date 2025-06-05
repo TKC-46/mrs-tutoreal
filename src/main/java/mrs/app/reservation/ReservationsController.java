@@ -10,17 +10,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import mrs.domain.model.MeetingRoom;
+import mrs.domain.model.ReservableRoom;
 import mrs.domain.model.ReservableRoomId;
 import mrs.domain.model.Reservation;
 import mrs.domain.model.RoleName;
 import mrs.domain.model.User;
+import mrs.domain.service.reservation.AlreadyReservedException;
 import mrs.domain.service.reservation.ReservationService;
+import mrs.domain.service.reservation.UnavailableReservationException;
 import mrs.domain.service.room.RoomService;
 
 
@@ -77,6 +83,36 @@ public class ReservationsController {
 		user.setRoleName(RoleName.USER);
 		return user;
 	}
+	
+	// 予約処理
+	@PostMapping
+	public String reserve(@Validated ReservationForm form, BindingResult bindingResult,
+					@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @PathVariable("date") LocalDate date,
+					@PathVariable("roomId") Integer roomId, Model model) {
+		
+		
+		if (bindingResult.hasErrors()) {
+			return reserveForm(date, roomId, model);
+		}
+		
+		
+		ReservableRoom reservableRoom = new ReservableRoom(new ReservableRoomId(roomId, date));
+		Reservation reservation = new Reservation();
+		reservation.setStartTime(form.getStartTime());
+		reservation.setEndTime(form.getStartTime());
+		reservation.setReservableRoom(reservableRoom);
+		reservation.setUser(dummyUser());
+			
+		try {
+			reservationService.reserve(reservation);
+		} catch (UnavailableReservationException | AlreadyReservedException e) {
+			model.addAttribute("error", e.getMessage());
+			return reserveForm(date, roomId, model);
+		}
+		
+		return "redirect:/reservations/{date}/{roomId}";
+	}
+	
 	
 
 }

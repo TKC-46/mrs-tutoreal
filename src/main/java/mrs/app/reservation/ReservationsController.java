@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import mrs.domain.model.MeetingRoom;
 import mrs.domain.model.ReservableRoom;
@@ -114,5 +115,23 @@ public class ReservationsController {
 	}
 	
 	
+	// 予約取り消し処理
+	@PostMapping(params = "cansel")
+	public String cancel(@RequestParam("reservationId") Integer reservationId,
+					@PathVariable("roomId") Integer roomId,
+					@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @PathVariable("date") LocalDate date,
+					Model model) {
+		// 一時的
+		User user = dummyUser();
+		
+		try {
+			reservationService.cancel(reservationId, user);
+		} catch (IllegalStateException e) {
+			model.addAttribute("error", e.getMessage());
+			return reserveForm(date, roomId, model);
+		}
+		
+		return "redirect:/reservations/{date}/{roomId}";
+	}
 
 }

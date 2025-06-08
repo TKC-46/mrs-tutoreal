@@ -46,7 +46,7 @@ public class ReservationService {
 		// publicがない理由：publicはそもそも外部からアクセスを自由にするという意味、だがoverlap(ローカル変数)はメソッド内の一時的なデータで外からアクセスする必要がないため使えない
 		boolean overlap = reservationRepository.findByReservableRoom_ReservableRoomIdOrderByStartTimeAsc(reservableRoomId)
 					.stream().anyMatch(x -> x.overlap(reservation));// 予約可能な会議室を開始時間順に取得し、どれかヒットした部屋を順に重複チェックにかける
-		
+		// 重複あり
 		if (overlap) {
 			// すでに予約済み
 			throw new AlreadyReservedException("入力の時間帯はすでに予約済みです。");

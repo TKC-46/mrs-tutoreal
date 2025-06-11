@@ -53,7 +53,7 @@ public class RoomsController {
 		LocalDate today = LocalDate.now();
 		// 予約可能な会議室の一覧
 		List<ReservableRoom> rooms = roomService.findReservableRooms(today);
-		// ログにデータを表示
+		// コンソールにデータを表示
 		for (ReservableRoom room : rooms) {
             logger.info("会議室情報: roomName={}, roomId={}, reservedDate={}",
                 room.getMeetingRoom().getRoomName(),

@@ -9,7 +9,7 @@
 	<h3>会議室</h3>
 	<a th:href="@{'/rooms/' + ${date.minusDays(1)}}">前日</a>
 	<span th:text="|${#temporals.format(date, 'yyyy/M/d')}の会議室|">2025/04/30の会議室</span>
-	<a th:href="@{'/rooms' + ${date.plusDays(1)}}">翌日</a>
+	<a th:href="@{'/rooms/' + ${date.plusDays(1)}}">翌日</a>
 	
 	<ul>
 		<li th:each="room : ${rooms}">
@@ -18,28 +18,11 @@
 		</li>
 	</ul>
 	
-	<table>
-		<thead>
-			<tr>
-				<th>会議室名</th>
-				<th>予約日</th>
-				<th>会議室ID</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="room : ${rooms}">
-	 	        <td th:text="${room.meetingRoom.roomName}"></td>
-				<td th:text="${room.reservableRoomId.reservedDate}"></td>
-				<td th:text="${room.reservableRoomId.roomId}"></td>
-			</tr>
-		</tbody>
-	</table>
 	
-	
-	<script th:inline="javascript">// <script>タグ内でThymeleafの式をJavaScript用に変換して埋め込む指定。
-		// Thymeleaf上で特殊記号<>%'"を無視するため
+	<!--　roomsをコンソール上に表示　-->
+	<script th:inline="javascript">
 	    /*<![CDATA[*/
-	    var rooms = [[${rooms}]];// [[]]インライン式で使うとき自動でJSON化
+	    var rooms = [[${rooms}]];
 	    console.log(JSON.stringify(rooms, null, 2)); 
 	    /*]]>*/
 	</script>

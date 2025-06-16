@@ -11,7 +11,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity // Web連携機能(CSRF対策など)を有効
-@EnableMethodSecurity
+@EnableMethodSecurity// @PreAuthorize, @PostAuthorizeを有効にする
 public class WebSecurityConfig {
 
 	@Bean

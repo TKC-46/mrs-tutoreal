@@ -18,8 +18,12 @@
 		</li>
 	</ul>
 	
+	<form th:action="@{/logout}" th:method="POST">
+		<button type="submit">ログアウト</button>
+	</form>
 	
-	<!--　roomsをコンソール上に表示　-->
+	
+	<!--　roomsをコンソール上に表示 xmlsにCDATAと認識させjsにはコメント化して余計なエラーを出さないようにする　-->
 	<script th:inline="javascript">
 	    /*<![CDATA[*/
 	    var rooms = [[${rooms}]];

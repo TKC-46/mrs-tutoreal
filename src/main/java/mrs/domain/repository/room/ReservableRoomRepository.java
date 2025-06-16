@@ -7,6 +7,8 @@ import jakarta.persistence.LockModeType;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Lock;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import mrs.domain.model.ReservableRoom;
@@ -24,5 +26,7 @@ public interface ReservableRoomRepository extends JpaRepository<ReservableRoom, 
 	
 	
 	// 予約可能な部屋IDを昇順で取得
-	List<ReservableRoom> findByReservableRoomId_ReservedDateOrderByReservableRoomId_RoomIdAsc(LocalDate reserveｄDate);
+	@Query("SELECT DISTINCT x FROM ReservableRoom x LEFT JOIN FETCH x.meetingRoom "
+			+ "WHERE x.reservableRoomId.reservedDate = :date ORDER BY x.reservableRoomId.roomId ASC")// LAZY FETCH処理を一回で済ませるクエリ性能が上がる
+	List<ReservableRoom> findByReservableRoomId_ReservedDateOrderByReservableRoomId_RoomIdAsc(@Param("date") LocalDate reservedDate);
 }

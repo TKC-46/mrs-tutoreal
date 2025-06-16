@@ -3,14 +3,17 @@ package mrs.domain.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
 // 複合主キーのクラス
 @Embeddable
 public class ReservableRoomId implements Serializable {
 
+	@Column(name = "room_id")
 	private Integer roomId;
 	
+	@Column(name = "reserved_date")
 	private LocalDate reservedDate;
 	
 	public ReservableRoomId(Integer roomId, LocalDate reservedDate) {

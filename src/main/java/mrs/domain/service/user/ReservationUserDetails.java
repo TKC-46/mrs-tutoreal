@@ -29,14 +29,14 @@ public class ReservationUserDetails implements UserDetails {
 
 	@Override
 	public String getPassword() {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
+		// ログイン時にパスワードを取得
+		return user.getPassword();
 	}
 
 	@Override
 	public String getUsername() {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
+		// ログイン時にユーザーIDを取得
+		return user.getUserId();
 	}
 	
 	@Override

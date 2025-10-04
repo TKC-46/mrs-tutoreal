@@ -19,7 +19,7 @@ public interface ReservableRoomRepository extends JpaRepository<ReservableRoom, 
 	
 	/*
 	 *  悲観ロック： 他のユーザーと会議室の登録が同じタイミングで予約するのを防ぐ、
-	 *  		 （排他処理）のため予約可能会議室IDを取得してロックをかける
+	 *  		 （排他処理）ため予約可能会議室IDを取得してロックをかける
 	 */
 	@Lock(LockModeType.PESSIMISTIC_WRITE)
 	ReservableRoom findOneForUpdateByReservableRoomId(ReservableRoomId reservableRoomId);

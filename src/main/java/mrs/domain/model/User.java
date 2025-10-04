@@ -10,7 +10,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "usr")
-public class User implements Serializable {
+public class User implements Serializable {// Serializable: フィルや通信可能な形に変換できる
 		
 	@Id
 	private String userId;

@@ -12,12 +12,12 @@ import jakarta.persistence.MapsId;
 @Entity
 public class ReservableRoom implements Serializable {
 
-	// 複合キーを管理会議室のIDと名前が含まれる
+	// 複合主キー（会議室のID＋日付）
 	@EmbeddedId
 	private ReservableRoomId reservableRoomId;
 	
 	@ManyToOne
-	// 二十定義を避けるtrueだとsqlで値をセットしなければならない@EmbeddedId の reservableRoomId.roomId から自動的にセット
+	// 二重定義を避けるtrueだとsqlで値をセットしなければならない@EmbeddedId の reservableRoomId.roomId から自動的にセット
 	@JoinColumn(name = "room_id", insertable = false, updatable = false)// 関連付けるだけなので、登録や更新がされないようにする
 	@MapsId("roomId")// reservableRoomId.roomId が meetingRoom.roomId とリンクされる
 	private MeetingRoom meetingRoom;

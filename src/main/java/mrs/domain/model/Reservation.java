@@ -2,7 +2,6 @@ package mrs.domain.model;
 
 import java.io.Serializable;
 import java.time.LocalTime;
-import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -42,7 +41,7 @@ public class Reservation implements Serializable {
 	 */
 	public boolean overlap(Reservation target) {
 		// 複合主キーのオブジェクトが既にDBに登録されている日付・部屋と違えば重複していない＝false
-		if (!Objects.equals(reservableRoom.getReservableRoomId(), target.reservableRoom.getReservableRoomId())) {
+		if (reservableRoom.getReservableRoomId() != target.reservableRoom.getReservableRoomId()) {
 			return false;
 		}
 		// 開始時間と終了時間が同じなら重複
@@ -57,7 +56,10 @@ public class Reservation implements Serializable {
 	}
 	
 
-	// Getter,Setter
+	/*
+	 * @Getter
+	 * @Setter
+	 */
 	public Integer getReservationId() {
 		return reservationId;
 	}

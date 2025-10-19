@@ -30,7 +30,7 @@ public class RoomService {
 		// 対象のmeetingRoomが存在しない場合
 		if (meetingRoom == null) {
 			
-			System.out.println("=== meeting room not found ===");
+			System.out.println("会議室が見つかりません：ID == " + roomId);
 		}
 		
 		return meetingRoom;

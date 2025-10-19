@@ -48,7 +48,7 @@ public class ReservationsController {
 	@ModelAttribute
 	ReservationForm setUpForm() {
 		ReservationForm form = new ReservationForm();
-		// デフォルト値
+		// 初期値：9:00~10:00
 		form.setStartTime(LocalTime.of(9, 0));
 		form.setEndTime(LocalTime.of(10, 0));
 		return form;
@@ -78,7 +78,7 @@ public class ReservationsController {
 		return "reservation/reserveForm";
 	}
 	
-	// private メソッドなのでこのクラス内ではインスタンス化せず使える
+	// private メソッドなのでこのクラスでのみ仕様可能、インスタンス化せず使える(他クラスでの使用不可)
 	private User dummyUser() {
 		User user = new User();
 		user.setUserId("taro-yamada");
@@ -104,7 +104,7 @@ public class ReservationsController {
 		ReservableRoom reservableRoom = new ReservableRoom(new ReservableRoomId(roomId, date));
 		Reservation reservation = new Reservation();
 		reservation.setStartTime(form.getStartTime());
-		reservation.setEndTime(form.getStartTime());
+		reservation.setEndTime(form.getEndTime());
 		reservation.setReservableRoom(reservableRoom);
 		reservation.setUser(userDetails.getUser());
 		

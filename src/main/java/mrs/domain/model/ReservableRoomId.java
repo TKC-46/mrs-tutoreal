@@ -40,14 +40,15 @@ public class ReservableRoomId implements Serializable {
 	 */
 	@Override
 	public boolean equals(Object obj) {
+		// 参照確認
 		if (this == obj) {
 			return true;
 		}
-		
+		// 存在チェック
 		if (obj == null) {
 			return false;
 		}
-		
+		// instansofと同意
 		if (getClass() != obj.getClass()) {
 			return false;
 		}

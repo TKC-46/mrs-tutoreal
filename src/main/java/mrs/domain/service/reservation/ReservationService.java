@@ -64,6 +64,8 @@ public class ReservationService {
 	 *  予約取り消し
 	 *  @PreAuthorize: Roleによる権限のチェックが可能になる
 	 *  EL式で条件検索、@Pでメソッド引数をEL式で参照する名前を指定
+	 *  EL式：@P("reservation") による引数バインドでEL式が引数の値を参照可能
+	 *  @Pで指定したreservationという引数 =　#reservationt
 	 */
 	@PreAuthorize("hasRole('ADMIN') or #reservation.user.userId == principal.user.userId")
 	public void cancel(@P("reservation") Reservation reservation) {
